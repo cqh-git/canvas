@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas"></canvas>
+		<script type="text/javascript">
+			function draw(){
+				   var canvas=document.getElementById('mycanvas');
+				   var ctx=canvas.getContext('2d');
+				   ctx.beginPath();
+				   ctx.moveTo(0,0);
+				   ctx.lineTo(50,50);
+				   ctx.lineTo(50,100);
+				  ctx.fill()
+			}
+			draw()
+		</script>
+	</body>
+</html>

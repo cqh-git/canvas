@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var foo={name:'tom',age:12};
+			let bb=Promise.resolve(foo);
+			bb.then((res)=>{
+				console.log(res)
+			}).then(()=>{
+				console.log(11)
+			}).then(()=>{
+				console.log('我是分界线----------------')
+			})
+			var gg={
+				then:(resolve,reject)=>{
+					resolve('1111111111我是新生儿')
+				}
+			};
+			var kk=Promise.resolve(gg);
+			kk.then((res)=>{
+				console.log(res)
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="300" height="300"></canvas>
+		<script type="text/javascript">
+			function draw(){
+			    var canvas = document.getElementById('mycanvas');
+			    if (!canvas.getContext) return;
+			    var ctx = canvas.getContext("2d");
+			    for (var i = 0; i < 6; i++){
+			        for (var j = 0; j < 6; j++){
+			            ctx.strokeStyle = `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+			            ctx.strokeRect(j * 50, i * 50, 40, 40);
+			        }
+			    }
+			}
+			draw();
+			/**
+			 返回随机的 [from, to] 之间的整数(包括from，也包括to)
+			 */
+			function randomInt(from, to){
+			    return parseInt(Math.random() * (to - from + 1) + from);
+			}
+		</script>
+	</body>
+</html>

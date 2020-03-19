@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas" width="300" height="300"></canvas>
+		<script>
+			function draw() {
+				var canvas=document.getElementById('mycanvas');
+				var ctx=canvas.getContext('2d');
+                ctx.beginPath();
+				ctx.moveTo(40,200);
+				var cp1x=20,cp1y=100;
+				var cp2x=100,cp2y=120;
+				var x=200,y=200;
+				ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.rect(40,200,10,10);
+				ctx.rect(20,100,10,10),
+				ctx.rect(100,120,10,10);
+				ctx.rect(200,200,10,10);
+				ctx.fill()
+			}
+
+			draw()
+		</script>
+	</body>
+</html>

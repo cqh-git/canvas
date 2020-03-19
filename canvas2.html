@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="mycanvas"></canvas>
+		<script type="text/javascript">
+			function draw(){
+				   var canvas=document.getElementById('mycanvas');
+				   var ctx=canvas.getContext('2d');
+				    ctx.fillRect(10,10,40,40);
+					ctx.strokeRect(10,70,100,50)
+			}
+			draw()
+		</script>
+	</body>
+</html>

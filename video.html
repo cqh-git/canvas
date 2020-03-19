@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.videoBox{
+				width: 300px;
+				height: 250px;
+			}
+			video{
+				width: 100%;
+				height:100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="videoBox">
+			<video src="image/gx.mp4" autoplay id="myVideo" muted></video>
+		</div>
+		<script type="text/javascript">
+			function initVideo() {
+				var video = document.getElementById('myVideo');
+				// video.play();
+				video.currentTime=11;
+				
+				// console.log(video.currentTime)
+				// // video.onloadedmetadata = function(val) {
+				// // 	console.log(val)
+				// // }
+				// video.addEventListener('timeupdate', function(e) {
+				//       // console.log('timeupdate')
+				//       // console.log(e)
+				// 	  	console.log(video.currentTime)
+				//     })
+				// video.addEventListener('durationchange', function(e) {
+				// 	console.log('提示视频的时长已改变')
+				// 	console.log(e)
+				// 	console.log(video.duration) // 528.981333   视频的实际时长（单位：秒）
+				// })
+				// video.addEventListener('canplaythrough', function(e) {
+				// 	console.log('提示视频能够不停顿地一直播放')
+				// 	console.log(e)
+				// })
+				// video.addEventListener('loadstart', function(e) {
+				// 	console.log('提示视频的元数据已加载')
+				// 	console.log(e)
+				// 	console.log(video.duration) // NaN
+				// })
+				// video.addEventListener('durationchange', function(e) {
+				// 	console.log('提示视频的时长已改变------我能获取视频的时长')
+				// 	console.log(e)
+				// 	console.log(video.duration) // 528.981333   视频的实际时长（单位：秒）
+				// })
+
+
+			}
+			initVideo()
+		</script>
+	</body>
+</html>
