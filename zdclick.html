@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button onclick="showMe()">点击我</button>
+<script>
+  function showMe(){
+    alert(1)
+  }
+  setTimeout(function(){
+    let button=document.getElementsByTagName('button')[0];
+    button.click();
+  },1000);
+</script>
+</body>
+</html>

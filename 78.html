@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			let deW = 1920,maxWidth = document.documentElement.clientWidth,fontSi = 20;
+			document.documentElement.style.fontSize = maxWidth / deW * fontSi + "px";
+			if (document.documentElement.clientWidth <= 1100) {
+				document.documentElement.style.fontSize = 1100 / deW * fontSi + "px";
+			}
+			if (document.documentElement.clientHeight <= 640) {
+				document.documentElement.style.fontSize = 14 + 'px';
+			}
+		</script>
+	</body>
+</html>
