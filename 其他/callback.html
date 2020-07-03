@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function aa(cc, callback) {
+				let qq = 5,dd = callback(3, 5) + cc;
+				return dd * qq
+			}
+
+			(function bb() {
+				let cc = 33;
+				let bbb = aa(cc, (a, b) => {
+					return (a * b)
+				})
+				console.log(bbb)
+			}());
+
+			(function gg() {
+				var oo = 5;
+				kk(oo, (res) => {
+					console.log(res)
+				})
+			}())
+
+
+			function kk(oo, callback) {
+				var pp = 99,jj = pp * 2 + oo;
+				callback(jj)
+			}
+		</script>
+	</body>
+</html>
