@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style>
+        #canvas1{
+            box-shadow: 0px 5px 40px black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="500">
+        这是个表
+    </canvas>
+
+</body>
+<script>
+
+    var canvas = document.getElementById('canvas1');
+
+    var context = canvas.getContext('2d');
+
+    //设置半径
+    var r = canvas.width / 2;
+
+    context.lineCap = "round";
+
+    //设置指针每走动一次转动的角度
+    var anglePerHour = Math.PI * 2 / 12;
+    var anglePerMin = Math.PI * 2 / 60;
+    var anglePerSec = Math.PI * 2 / 60;
+
+    var timer = null;
+
+    //坐标系变更，00点设置到画布中心，x轴指向上方，y轴指向右方
+    context.translate(r,r);
+    context.rotate(- Math.PI / 2);
+
+
+
+    //注意：
+    //1、每个部分绘制前都要用beginPath()新建一个图层，不然会出现复画前一步的bug
+    //2、在初始坐标系设置完毕后，后面所有的变换操作前都要进行坐标系保存save()，完成后都要进行坐标系复归restore()
+    //3、时针需加上分针及秒针的转动百分比，分针需加上秒针的转动百分比
+    //4、定时器执行时，在绘制前，需将已经绘制的画面清除clearRect(x1,y1,x2,y2)，以提高性能
+
+
+
+    //表盘+刻度绘制函数
+    function  drowDial () {
+        //表盘绘制
+        context.beginPath();
+        context.fillStyle = "#BBB";
+        context.arc(0,0,r,0,Math.PI * 2,true);
+        context.fill();
+
+        //大刻度绘制
+        context.beginPath();
+        context.lineWidth = 10;
+        context.strokeStyle = "red";
+
+        for (var i = 0; i < 12; i++) {
+            context.save();
+            context.rotate(i * anglePerHour);
+            context.moveTo(r - 40,0);
+            context.lineTo(r - 10,0);
+            context.stroke();
+            context.restore();
+        }
+
+        //小刻度绘制
+        context.beginPath();
+        context.lineWidth = 5;
+        context.strokeStyle = "#fff";
+
+        for (var i = 0; i < 60; i++) {
+            if (i % 5 !==0){
+                context.save();
+                context.rotate(i * anglePerMin);
+                context.moveTo(r - 30,0);
+                context.lineTo(r - 10,0);
+                context.stroke();
+                context.restore();
+            }
+        }
+    }
+
+    //指针绘制函数
+    function drowPointer () {
+         //时间获取
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+
+        //时针绘制
+        context.beginPath();
+        context.lineWidth = 20;
+        context.strokeStyle = "skyblue";
+
+        context.save();
+        context.rotate(hour * anglePerHour + min * anglePerMin / 12 + sec * anglePerSec / 12 / 60);
+        context.moveTo(0,0);
+        context.lineTo(120,0);
+        context.stroke();
+        context.restore();
+
+        //分针绘制
+        context.beginPath();
+        context.lineWidth = 10;
+        context.strokeStyle = "pink";
+
+        context.save();
+        context.rotate(min * anglePerMin + sec * anglePerSec / 60);
+        context.moveTo(0,0);
+        context.lineTo(150,0);
+        context.stroke();
+        context.restore();
+
+        //秒针绘制
+        context.beginPath();
+        context.lineWidth = 5;
+        context.strokeStyle = "gold";
+
+        context.save();
+        context.rotate(sec * anglePerSec);
+        context.moveTo(0,0);
+        context.lineTo(170,0);
+        context.stroke();
+        context.restore();
+    }
+
+    //绘制函数预先执行
+    drowDial();
+    drowPointer();
+
+    //定时器设置
+    function timerGo () {
+        timer = setInterval(function () {
+            //每过1s清楚画布上所有画面，可以提高效率，否则每次生成的画面会不断叠加
+            context.clearRect(-r,-r,r,r); 
+            drowDial();
+            drowPointer();
+        }, 1000)
+    }
+
+    timerGo();
+
+
+</script>
+</html>

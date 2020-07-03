@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			body {
+				text-align: center;
+				padding-top: 20px;
+			}
+
+			#canvas {
+				box-shadow: 0 0 10px orange;
+				margin: 20px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="400"></canvas>
+		<script type="text/javascript">
+			(function() {
+				var a = document.getElementById('canvas');
+				var ctx = a.getContext('2d');
+				var img = new Image();
+				img.src = 'dog.jpg';
+				img.onload = function() {
+					// ctx.drawImage(this,0,0)
+					ctx.drawImage(this,0,0,200,200);
+					// ctx.drawImage(this,0,0,100,100,150,50,100,100);
+					ctx.font = "30px Arial";
+					ctx.strokeStyle='blue';
+					ctx.strokeText('褚青华',50,30)
+				}
+			}())
+		</script>
+	</body>
+</html>

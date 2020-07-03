@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			img {
+				position: absolute;
+			}
+
+			canvas {
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="./dog.jpg" alt="">
+		<canvas id="canvas" width="534" height="300"></canvas>
+		<script type="text/javascript">
+			(function() {
+				var a = document.getElementById('canvas');
+				var ctx = a.getContext('2d');
+				ctx.beginPath();
+				ctx.fillStyle = 'gray';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.globalCompositeOperation = 'destination-out';
+				ctx.lineWidth = 50;
+				ctx.lineCap = 'round';
+				canvas.onmousedown = function(e) {
+					var ev = e || window.event;
+					var x = ev.clientX;
+					var y = ev.clientY;
+					ctx.moveTo(x, y);
+					canvas.onmousemove = function(e) {
+						var ev = e || window.event;
+						var x = ev.clientX;
+						var y = ev.clientY;
+						ctx.lineTo(x, y);
+						ctx.stroke()
+					};
+					canvas.onmouseup = function() {
+						canvas.onmousemove = ''
+					}
+				}
+
+			}())
+		</script>
+	</body>
+</html>

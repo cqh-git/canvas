@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			body {
+				text-align: center;
+			}
+
+			canvas {
+				display: inline-block;
+				margin: 100px auto;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="534" height="300"></canvas>
+		<script type="text/javascript">
+			(function() {
+				var a = document.getElementById('canvas');
+				var ctx = a.getContext('2d');
+				var x=0;
+                 function backgroundMove(){
+					 //记录状态方法
+					 ctx.save();
+					 ctx.clearRect(0,0,canvas.width,canvas.height);
+					 ctx.translate(-x,0);
+					 ctx.drawImage(bgImg,0,0);
+					 ctx.drawImage(bgImg,canvas.width,0);
+					 //判断x的偏移量
+					 x++;
+					 if(x>=canvas.width){
+						 x=0
+					 }
+					 ctx.restore();
+					 window.requestAnimationFrame(backgroundMove)
+					 
+				 }
+				 var bgImg=new Image();
+				 bgImg.src='dog.jpg';
+				 bgImg.onload=function(){
+					 backgroundMove()
+				 }
+
+			}())
+		</script>
+	</body>
+</html>
