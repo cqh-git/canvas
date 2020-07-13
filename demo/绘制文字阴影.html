@@ -26,16 +26,20 @@
 			(function() {
 				var a = document.getElementById('canvas');
 				var ctx = a.getContext('2d');
-				var ling = ctx.createLinearGradient(50,50, 130, 130);
-				ling.addColorStop(0.5, 'red');
-				ling.addColorStop(1, 'green');
+				var ling = ctx.createLinearGradient(0, 0, 180, 0);
+				ling.addColorStop(0, 'black');
+				ling.addColorStop(0.3, 'green');
+				ling.addColorStop(0.6, 'yellow');
+				ling.addColorStop(1, 'red');
 				ctx.shadowColor = 'orange';
 				ctx.shadowBlur = 5;
 				ctx.shadowOffsetX = 10;
 				ctx.shadowOffsetY = 10;
 				ctx.font = 'bold italic 30px arial';
-				ctx.fillStyle = ling
-				ctx.fillText('张三', 0, 30)
+				ctx.fillStyle = ling;
+				let txt='张三李四王五'
+				console.log(ctx.measureText(txt).width)
+				ctx.fillText(txt, 0, 30)
 			}())
 		</script>
 	</body>

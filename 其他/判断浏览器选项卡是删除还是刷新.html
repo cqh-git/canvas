@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var beginTime = 0; //执行onbeforeunload的开始时间
+			var differTime = 0; //时间差
+			window.onunload = function() {
+				differTime = new Date().getTime() - beginTime;
+				if (differTime <= 5) {
+					localStorage.setItem('bb','关闭')
+				} else {
+					localStorage.setItem('aa','刷新')
+				}
+
+			}
+			window.onbeforeunload = function() {
+				beginTime = new Date().getTime();
+			};
+		</script>
+	</body>
+</html>

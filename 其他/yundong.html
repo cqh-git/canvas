@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<style>
+			*{
+  margin:0;
+  padding:0;
+  font-family:"微软雅黑";
+ }
+ .box{
+  width:50px;
+  height:50px;
+  color:#fff;
+  text-align:center;
+  font-size:14px;
+  line-height:50px;
+  margin-top:20px;
+  position:relative;
+ }
+ .box:nth-child(1){
+  background:#08f;
+  left:50px;
+ }
+ .box:nth-child(2){
+  background:#f80;
+  left:400px;
+ }
+ #ruler{
+  margin-top:40px;
+ }
+ #a div{
+  width:48.6px;
+  height:7.6px;
+  border:1.4px solid #333;
+  border-width:0 1.4px 1.4px 0;
+  float:left;
+ }
+ #a div:last-child{
+  border-width:0 0 1.4px 0;
+ }
+ #b div{
+  font-size:12px;
+  font-weight:lighter;
+  position:relative;
+  top:-10px;
+  float:left;
+ }
+ #b div:nth-child(1){left:90px;}
+  #b div:nth-child(2){left:150px;}
+ #b div:nth-child(3){left:220px;}
+ #b div:nth-child(4){left:290px;}
+ #b div:nth-child(5){left:360px;}
+ #form{
+  background:#eee;
+  font-size:14px;
+  margin:20px 0;
+  width:540px;
+  padding:30px;
+ }
+ #form input:nth-Child(1){
+  width:50px;
+  padding:3px;
+  font-size:12px;
+  font-weight:lighter;
+  border:1.4px solid #666;
+ }
+ #form input:nth-Child(2){
+  border:1.4px solid #444;
+  padding:3px 8px;
+  font-size:12px;
+  background:#666;
+  color:#fff;
+ }
+</style>
+	</head>
+	<body>
+		<div class="box">box1</div>
+		<div class="box">box2</div>
+		<div id="ruler">
+			<div id="a">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div><br />
+			<div id="b">
+				<div>100px</div>
+				<div>200px</div>
+				<div>300px</div>
+				<div>400px</div>
+				<div>500px</div>
+			</div>
+			<div id="form">
+				要移动到的坐标：
+				<input type="text" value="100" />
+				<input type="submit" value="移动" />
+			</div>
+		</div>
+		<script>
+			var btn = document.getElementsByTagName("input")[1];
+			var target = document.getElementsByTagName("input")[0];
+			var box = document.getElementsByClassName("box")[0];
+			var box2 = document.getElementsByClassName("box")[1];
+			btn.onclick = function() {
+				uniformSpeed(box, target.value);
+				uniformSpeed(box2, target.value);
+			};
+
+			function uniformSpeed(ele, target) {
+				console.log(ele.offsetLeft,target)
+				var speed = 6;
+				if (Math.abs(ele.offsetLeft - target) > speed) {
+					clearInterval(ele.timer); //保证元素此动画计时器不重复
+					var dir = ele.offsetLeft < target ? 1 : -1; //确定运动方向
+					ele.timer = setInterval(function() {
+						ele.style.left = ele.offsetLeft + dir * speed + "px";
+						if (Math.abs(ele.offsetLeft - target) <= speed) { //快到达时微调到具体位置
+							ele.style.left = target + "px";
+							clearInterval(ele.timer);
+						}
+					}, 24);
+				}
+			}
+		</script>
+	</body>
+</html>

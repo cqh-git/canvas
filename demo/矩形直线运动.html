@@ -8,9 +8,11 @@
 				padding: 0px;
 				margin: 0px;
 			}
-body{
-	text-align: center;
-}
+
+			body {
+				text-align: center;
+			}
+
 			canvas {
 				display: inline-block;
 				margin: 100px auto;
@@ -32,24 +34,23 @@ body{
 				ctx.beginPath();
 				var speedX = 2;
 				var speedY = 2;
-				function aa(){
+
+				function aa() {
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
 					x += speedX;
 					y += speedY;
 					if (x > canvas.width - width) {
 						speedX *= -1;
-						console.log('111+'+speedX)
 					} else if (x < 0) {
 						speedX *= -1;
-						console.log('222+'+speedX)
 					}
 					if (y > canvas.height - height) {
 						speedY *= -1
 					} else if (y < 0) {
 						speedY *= -1
 					}
-					ctx.fillStyle='red'
-					ctx.fillRect(x,y,width,height)
+					ctx.fillStyle = 'red'
+					ctx.fillRect(x, y, width, height)
 					window.requestAnimationFrame(aa)
 				}
 				aa()

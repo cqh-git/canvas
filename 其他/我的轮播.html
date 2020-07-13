@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			#box {
+				width: 500px;
+				height: 300px;
+				overflow: hidden;
+				margin: 100px auto;
+				position: relative;
+			}
+
+			ul {
+				width: 3000px;
+				clear: both;
+				height: 300px;
+				position: absolute;
+				top: 0;
+			}
+
+			li {
+				list-style: none;
+				float: left;
+				width: 500px;
+				height: 300px;
+			}
+
+			img {
+				width: 500px;
+				height: 300px;
+			}
+
+			ol {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				z-index: 110;
+			}
+
+			ol li {
+				color: white;
+				width: 30px;
+				height: 30px;
+				cursor: pointer;
+				text-align: center;
+				line-height: 30px;
+			}
+
+			.left,
+			.right {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				background: rgb(255, 255, 255, 0.5);
+				z-index: 100;
+				line-height: 50px;
+				text-align: center;
+				top: 120px;
+				cursor: pointer;
+				font-size: 20px;
+				color: #FFA500;
+				display: none;
+			}
+
+			.left:hover {
+				background: rgba(255, 255, 255, 0.7);
+			}
+
+			.right:hover {
+				background: rgba(255, 255, 255, 0.7);
+			}
+
+			.left {
+				left: 0px;
+			}
+
+			.right {
+				right: 0px;
+			}
+
+			.current {
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul id="ul">
+				<li>
+					<img src="images/1.jpg">
+				</li>
+				<li>
+					<img src="images/2.jpg">
+				</li>
+				<li>
+					<img src="images/3.jpg">
+				</li>
+				<li>
+					<img src="images/4.jpg">
+				</li>
+				<li>
+					<img src="images/5.jpg">
+				</li>
+			</ul>
+			<div class="left arrow">
+				<</div> <div class="right arrow">
+					>
+			</div>
+			<ol>
+			</ol>
+		</div>
+		<script>
+			var box = document.getElementById('box');
+			var ul = box.children[0];
+			var ol = document.getElementsByTagName('ol')[0];
+			var left = document.getElementsByClassName('left')[0];
+			var right = document.getElementsByClassName('right')[0];
+			var picIndex = 0;
+			var newTime = null
+			var timer = null;
+			(function() {
+				for (var i = 0; i < ul.children.length; i++) {
+					var oli = document.createElement('li');
+					oli.innerText = i + 1;
+					oli.setAttribute('index', i);
+					ol.appendChild(oli);
+				}
+				ol.children[0].setAttribute('class', 'current')
+				ol.addEventListener('mouseover', function(e) {
+					let ev = e || window.event;
+					if (ev.target.localName === 'li') {
+						for (var i = 0; i < ol.children.length; i++) {
+							ol.children[i].removeAttribute('class', 'current');
+						}
+						ev.target.setAttribute('class', 'current');
+						picIndex = ev.target.getAttribute('index');
+						clearInterval(ul.timer);
+						animate(-(picIndex * box.offsetWidth))
+					};
+				})
+				ul.appendChild(ul.children[0].cloneNode(true));
+				timer = setInterval(() => {
+					picIndex++;
+					if (picIndex > 5) {
+						picIndex = 1;
+						ul.style.left = 0 + 'px';
+					};
+					animate(-(picIndex * box.offsetWidth))
+				}, 2000)
+			}())
+			box.addEventListener('mouseover', function() {
+				left.style.display = 'block';
+				right.style.display = 'block';
+				clearInterval(timer)
+			})
+			box.addEventListener('mouseout', function() {
+				left.style.display = 'none';
+				right.style.display = 'none';
+				timer = setInterval(() => {
+					picIndex++;
+					if (picIndex > 5) {
+						picIndex = 1;
+						ul.style.left = 0 + 'px';
+					};
+					animate(-(picIndex * box.offsetWidth))
+				}, 2000)
+			})
+			left.addEventListener('click', function() {
+				picIndex--;
+				if (picIndex < 0) {
+					picIndex = 4;
+					ul.style.left = -2500 + 'px';
+				};
+				animate(-(picIndex * box.offsetWidth))
+			})
+			right.addEventListener('click', function() {
+				picIndex++;
+				if (picIndex > 5) {
+					picIndex = 1;
+					ul.style.left = 0 + 'px';
+				};
+				animate(-(picIndex * box.offsetWidth))
+			})
+			//加上这段代码是为了浏览器标签切换后出现轮播错误现象；
+			document.addEventListener("visibilitychange", function() {
+				if (document.hidden) {
+					console.log('我隐藏了')
+					clearInterval(timer);
+					window.cancelAnimationFrame(newTime)
+				} else {
+					console.log('我出现了')
+					timer = setInterval(() => {
+						picIndex++;
+						if (picIndex > 5) {
+							picIndex = 1;
+							ul.style.left = 0 + 'px';
+						};
+						animate(-(picIndex * box.offsetWidth))
+					}, 2000)
+				}
+
+			}, false);
+
+			function animate(target) {
+				var speed = 30;
+				var dir = ul.offsetLeft < target ? 1 : -1;
+				for (var i = 0; i < ol.children.length; i++) ol.children[i].removeAttribute('class', 'current');
+				ol.children[picIndex > 4 ? 0 : picIndex].setAttribute('class', 'current');
+				// --------------------------------------
+				window.cancelAnimationFrame(newTime);
+				(function timer() {
+					if (Math.abs(ul.offsetLeft - target) > speed) {
+						ul.style.left = ul.offsetLeft + dir * speed + 'px';
+						newTime = window.requestAnimationFrame(timer)
+					} else {
+						window.cancelAnimationFrame(newTime)
+						ul.style.left = target + 'px'
+					}
+				}());
+				// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+				// clearInterval(ul.timer);
+				// ul.timer = setInterval(() => {
+				// 	if (Math.abs(ul.offsetLeft - target) > speed) {
+				// 		ul.style.left = ul.offsetLeft + dir * speed + 'px';
+				// 	} else {
+				// 		clearInterval(ul.timer)
+				// 		ul.style.left = target + 'px'
+				// 	}
+				// }, 20)
+			}
+		</script>
+	</body>
+</html>

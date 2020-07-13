@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+			  padding: 0;
+			  margin: 0;
+			  list-style: none;
+			  border: 0;
+			}
+			
+			.h3 {
+			  margin-left: 500px;
+			}
+			
+			.all {
+			  width: 200px;
+			  height: 200px;
+			  padding: 7px;
+			  border: 1px solid #ccc;
+			  margin: 100px auto;
+			  position: relative;
+			
+			
+			}
+			.screen {
+			  width: 200px;
+			  height: 200px;
+			  overflow: hidden;
+			  position: relative;
+			}
+			
+			.screen li {
+			  width: 200px;
+			  height: 200px;
+			  overflow: hidden;
+			  float: left;
+			}
+			
+			.screen ul {
+			  position: absolute;
+			  left: 0;
+			  top: 0px;
+			  width: 3000px;
+			
+			}
+			
+			.all ol {
+			  position: absolute;
+			  right: 10px;
+			  bottom: 10px;
+			  line-height: 20px;
+			  text-align: center;
+			}
+			
+			.all ol li {
+			  float: left;
+			  width: 20px;
+			  height: 20px;
+			  background: #fff;
+			  border: 1px solid #ccc;
+			  margin-left: 10px;
+			  cursor: pointer;
+			}
+			
+			.all ol li.current {
+			  background: yellow;
+			}
+			
+			#arr {
+			  display: none;
+			}
+			
+			#arr span {
+			  width: 40px;
+			  height: 40px;
+			  position: absolute;
+			  left: 5px;
+			  top: 50%;
+			  margin-top: -20px;
+			  background: #000;
+			  cursor: pointer;
+			  line-height: 40px;
+			  text-align: center;
+			  font-weight: bold;
+			  font-family: '黑体';
+			  font-size: 30px;
+			  color: #fff;
+			  opacity: 0.3;
+			  border: 1px solid #fff;
+			}
+			
+			#arr .right {
+			  right: 5px;
+			  left: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="all" id="box">
+			<div class="screen">
+				<ul>
+					<li><a href="javascript:;"><img src="./1.jpg"></a></li>
+					<li><a href="javascript:;"><img src="./2.jpg"></a></li>
+					<li><a href="javascript:;"><img src="./3.jpg"></a></li>
+					<li><a href="javascript:;"><img src="./4.jpg"></a></li>
+					<li><a href="javascript:;"><img src="./5.jpg"></a></li>
+				</ul>
+				<ol></ol>
+			</div>
+			<div id="arr"><span class="left">&lt;</span><span class="right">&gt;</span></div>
+		</div>
+		<script type="text/javascript">
+			//动画函数
+			function animate(el, target) {
+				if (el.timer) {
+					clearInterval(el.timer);
+				}
+				el.timer = setInterval(function() {
+					//leader = leader + step
+					var leader = el.offsetLeft;
+					var step = 30;
+					if (target < leader) {
+						step = -step;
+					}
+					//如果到达终点的距离已经小于一步了，就直接跨到终点。
+					if (Math.abs(target - leader) >= Math.abs(step)) {
+						leader = leader + step;
+						el.style.left = leader + "px";
+					} else {
+						clearInterval(el.timer);
+						el.style.left = target + "px";
+					}
+				}, 15);
+			}
+			//1. 找对象
+			var box = document.querySelector(".all");
+			var screen = document.querySelector(".screen");
+			var ul = screen.children[0];
+			var ullis = ul.children;//获取li集合
+			var ol = screen.children[1];//获取ol
+			var arr = document.querySelector("#arr");//获取箭头盒子
+			var leftArr = arr.querySelector(".left");
+			var rightArr = arr.querySelector(".right");
+			var imgwidth = screen.offsetWidth;//200px
+			console.log(imgwidth)
+
+			var pic = fk = 0;
+			var timer;
+			//2. 动态创建结构
+			//2.1 创建小方块,ulLis
+			//根据ul中li的个数创建小方块
+			for (var i = 0; i < ullis.length; i++) {
+				var li = document.createElement("li");
+				ol.appendChild(li);
+				li.innerHTML = i + 1;
+			}
+			var ollis = ol.children;
+			ollis[0].className = "current";
+
+			//2.2 创建假图片
+			//2.2.1 克隆ul下的第一个li
+			var cloneli = ullis[0].cloneNode(true);
+			ul.appendChild(cloneli);
+			//3. 简单轮播功能
+			//3.1 给小方块注册点击事件
+			for (var i = 0; i < ollis.length; i++) {
+				ollis[i].index = i; //存索引
+				ollis[i].addEventListener("click", function() {
+					//3.2 小方块高亮排他
+					for (var i = 0; i < ollis.length; i++) {
+						ollis[i].className = "";
+					}
+					this.className = "current";
+					//3.3. 移动ul
+					var target = -this.index * imgwidth;
+					animate(ul, target);
+
+					pic = fk = this.index;
+				})
+			}
+
+			//4. 左右焦点功能（无缝）
+			//4.1 鼠标经过盒子，显示箭头
+			box.onmouseover = function() {
+				arr.style.display = "block";
+				//清除定时器
+				clearInterval(timer);
+			}
+			//4.2 鼠标离开盒子，隐藏箭头
+			box.onmouseleave = function() {
+				arr.style.display = "none";
+				timer = setInterval(function() {
+					rightArr.onclick();
+				}, 1000)
+			}
+			//4.3 点击右箭头
+			rightArr.onclick = function() {
+				//如果已经到了最后一张假图片，让ul瞬移到第一张真图片
+				if (pic === ollis.length) {
+					ul.style.left = 0;
+					pic = 0;
+				}
+				pic++; //记录出去的图片张数
+
+				fk++;
+				if (fk === ollis.length) {
+					fk = 0;
+				}
+				for (var i = 0; i < ollis.length; i++) {
+					ollis[i].className = "";
+				}
+				ollis[fk].className = "current";
+				var target = -pic * imgwidth;
+				animate(ul, target);
+			}
+			//4.4 点击左箭头
+			leftArr.onclick = function() {
+				if (pic === 0) {
+					ul.style.left = -(ullis.length - 1) * imgwidth + "px";
+					pic = ullis.length - 1;
+				}
+				pic--;
+
+				//同步小方块
+				fk--;
+				if (fk === -1) {
+					fk = ollis.length - 1;
+				}
+				for (var i = 0; i < ollis.length; i++) {
+					ollis[i].className = "";
+				}
+				ollis[fk].className = "current";
+				var target = -pic * imgwidth;
+				animate(ul, target);
+			}
+			//5. 自动播放的功能
+			timer = setInterval(function() {
+				rightArr.onclick();
+			}, 1000)
+			//6. 同步问题
+			//6.1 点击右箭头,同步
+			//6.2 点击左箭头，同步
+			//6.3 点击小方块，同步
+		</script>
+	</body>
+</html>

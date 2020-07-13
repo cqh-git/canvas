@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.wfbox {
+			  width: 533px;
+			  height: 200px;
+			  border: 1px solid #000;
+			  margin: 100px auto;
+			  position: relative;
+			  overflow: hidden;
+			}
+			.wfbox:hover ul{
+			  /* 在hover的时候让动画暂停 */
+			  animation-play-state:paused;
+			}
+			.wfbox img{
+			  display: block;
+			}
+			.wfbox ul {
+			  width: 3198px;
+			  height: 200px;
+			  position: absolute;
+			  left: 0;
+			  top: 0;
+			  animation: wufeng 10s linear infinite;
+			}
+			@keyframes wufeng{
+			  0%{
+			    left: 0;
+			  }
+			  100%{
+			    left: -2132px;
+			  }
+			}
+			.wfbox ul li{
+			  float: left;
+			}
+		</style>
+	</head>
+	<body>
+		 <div class="wfbox">
+		    <ul>
+		      <li><a href="#"><img src="./images/1.jpg" alt=""></a></li>
+		      <li><a href="#"><img src="./images/2.jpg" alt=""></a></li>
+		      <li><a href="#"><img src="./images/3.jpg" alt=""></a></li>
+		      <li><a href="#"><img src="./images/4.jpg" alt=""></a></li>
+		      <!-- 复制两个临时工 -->
+		      <li><a href="#"><img src="./images/1.jpg" ></a></li>
+		      <li><a href="#"><img src="./images/2.jpg" alt=""></a></li>
+		    </ul>
+		  </div>
+		  <script>
+			 function animate(element, target){
+			     if(element.timer) {
+			         //如果有值，说明已经开启过定时器
+			         clearInterval(element.timer);
+			     }
+			     element.timer = setInterval(function () {
+			         //leader = leader + step
+			         var leader = element.offsetLeft;
+			         var step = 30;
+			         if(target < leader) {
+			             step = -step;
+			         }
+			 
+			         
+			         //如果步数是9的话，永远都跑不到重点
+			         //如果到达终点的距离已经小于一步了，就不跑了，因为你再跑就过了。
+			         if(Math.abs(target-leader) >= Math.abs(step)) {
+			             leader = leader + step;
+			             element.style.left = leader + "px";
+			         }else {
+			             clearInterval(element.timer);
+			             //抱过去
+			             element.style.left = target + "px";
+			         }
+			     }, 15);
+			 }
+		  </script>
+	</body>
+</html>
