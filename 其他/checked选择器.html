@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			label {
+				width: 200px;
+				height: 200px;
+				background-color: red;
+				display: inline-block;
+			}
+
+			input[type="checkbox"] {
+				display: none;
+			}
+
+			input:checked+.box {
+				background-color: blue;
+			}
+
+			.box {
+				width: 100px;
+				height: 100px;
+				background-color: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<label>
+			<input type="checkbox">
+			<div class="box"></div>
+		</label>
+
+	</body>
+</html>

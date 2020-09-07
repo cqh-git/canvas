@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			body {
+				width: 100vw;
+				height: 100vh;
+			}
+
+			main {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 400px;
+				height: 400px;
+				box-sizing: border-box;
+				border: 1px solid black;
+				transform-style: preserve-3d;
+				transform: perspective(900px) rotateY(45deg);
+				transition: 2s;
+			}
+
+			div {
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -100px;
+				margin-top: -100px;
+			}
+
+			div:nth-child(1) {
+				background-color: red;
+			}
+
+			div:nth-child(2) {
+				transition: 1s;
+				background-color: blue;
+				transform: translateZ(-300px);
+			}
+
+			main:hover div:nth-child(2) {
+				transform: translateZ(-300px);
+			}
+
+			body:hover main {
+				transform: perspective(900px) rotateY(45deg) scaleZ(3);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div></div>
+			<div></div>
+		</main>
+	</body>
+</html>

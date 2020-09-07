@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+				box-sizing: border-box;
+			}
+
+			body {
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #2C3E50;
+
+			}
+			.card{
+				width: 300px;
+				height: 200px;
+				background-color: orange;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 2em;
+				color: white;
+				position: relative;
+				transform-style:preserve-3d ;
+				transform: perspective(900px) rotateX(45deg) rotateY(25deg);
+			}
+			.card::before,.card::after{
+				transition: 2s;
+				background-color: pink;
+				width: 50%;
+				height: 100%;
+				position: absolute;
+			}
+			.card::before{
+				content:"新年";
+				left: 0;
+				top: 0;
+				display: flex;
+				justify-content:flex-end;
+				align-items: center ;
+				border-right: solid 1px black;
+				transform-origin: left;
+			}
+			.card::after{
+				content:"快乐";
+				right: 0;
+				top: 0;
+				display: flex;
+				justify-content:flex-start;
+				align-items:  center;
+				transform-origin: right;
+				border-left: solid 1px black;
+			}
+			.card:hover::before{
+				transform: rotateY(-180deg);
+			}
+			.card:hover::after{
+				transform: rotateY(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="card">houdunren</div>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			body {
+				width: 100vw;
+				height: 100vh;
+				background: #2c3e50;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			main {
+				width: 200px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			main a{
+				color: white;
+				font-size: 1.5em;
+				text-decoration: none;
+				border: 2px solid orange;
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 55px;
+				position: relative;
+				overflow: hidden;
+			}
+            .btn::after{
+				content:'';
+				width:0;
+				height: 100%;
+				position: absolute;
+				transform: skew(45deg);
+				background-color: goldenrod;
+				z-index: -1;
+				transition: 0.5s;
+			}
+			.btn:hover::after{
+				width: 200%;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<a href="" class="btn">houdunren</a>
+		</main>
+	</body>
+</html>
