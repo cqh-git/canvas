@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			body {
+				display: flex;
+				justify-content: space-around;
+			}
+
+			.leftBox,
+			.rightBox {
+				width: 300px;
+				height: 600px;
+				border: 1px solid black;
+				margin-top: 100px;
+			}
+
+			div {
+				width: 100px;
+				height: 100px;
+			}
+
+			img {
+				width: 100px;
+				height: 100px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="leftBox" ondragover="dragover(event)" ondrop="dropThing(event)" ondragenter='dragenter()'>
+			<p>拖动你喜欢的图片到这里吧</p>
+		</div>
+		<div class="rightBox" ondragover="dragover(event)" ondragenter='dragenter()' ondrop="dropThing(event)">
+			<img src="images/1.jpg" draggable="true" alt="我是1" ondragstart="dragStart(event)">
+			<img src="images/2.jpg" draggable="true" alt="我是2" ondragstart="dragStart(event)">
+			<img src="images/3.jpg" draggable="true" alt="我是3" ondragstart="dragStart(event)">
+			<img src="images/4.jpg" draggable="true" alt="我是4" ondragstart="dragStart(event)">
+			<img src="images/5.jpg" draggable="true" alt="我是5" ondragstart="dragStart(event)">
+			<img src="images/6.jpg" draggable="true" alt="我是6" ondragstart="dragStart(event)">
+		</div>
+		<script type="text/javascript">
+			let leftBox = document.getElementsByClassName('leftBox')[0];
+			let rightBox = document.getElementsByClassName('rightBox')[0];
+			let ps = document.getElementsByTagName('p')[0];
+			let name = null;
+
+			function dragStart(e) {
+				e.dataTransfer.setData('dragContent', e.target.alt)
+				name = e.target.alt
+			}
+
+			function dragover(e) {
+				e.preventDefault()
+			}
+
+			function dropThing(ev) {
+				console.log(ev)
+				ev.preventDefault()
+				ev.target.appendChild(document.querySelector(`img[alt=${ ev.dataTransfer.getData('dragContent')}]`));
+			}
+
+			function dragenter() {
+				ps.innerHTML = name;
+				ps.style.color = 'red'
+			}
+			document.addEventListener('dragend', e => {
+				e.target.style.border = 'none';
+				ps.innerHTML = '拖动你喜欢的图片到这里吧';
+				ps.style.color = 'black';
+				leftBox.style.border = '1px solid black';
+			})
+			document.addEventListener('dragleave', e => {
+				console.log(111111, e);
+			})
+			document.addEventListener('drag', e => {
+				e.target.style.border = '5px solid black';
+				leftBox.style.border = '5px solid black';
+			})
+			// dragend = function(e) {
+			// 	e.target.style.border = 'none';
+			// 	ps.innerHTML = '拖动你喜欢的图片到这里吧';
+			// 	ps.style.color = 'black';
+			// 	leftBox.style.border = '1px solid black';
+			// }
+			// dragMove = function(e) {
+			// 	e.target.style.border = '5px solid black';
+			// 	leftBox.style.border = '5px solid black';
+			// }
+			// document.addEventListener('dragstart', e => {
+			// 	e.dataTransfer.setData('dragContent', e.target.alt)
+			// 	name = e.target.alt
+			// })
+			// leftBox.addEventListener('dragenter', e => {
+			// 	ps.innerHTML = name;
+			// 	ps.style.color = 'red'
+			// })
+			// leftBox.addEventListener('dragover', e => {
+			// 	e.preventDefault()
+			// })
+			// leftBox.addEventListener('drop', e => {
+			// 	e.preventDefault()
+			// 	e.target.appendChild(document.querySelector(`img[alt=${ e.dataTransfer.getData('dragContent')}]`));
+			// })
+		</script>
+	</body>
+</html>
