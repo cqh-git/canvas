@@ -57,14 +57,14 @@
 			var img = new Image();
 			img.src = '../image/dog.jpg';
 			function dragStart(e) {
-				e.dataTransfer.effectAllowed = 'copy';
+				e.dataTransfer.effectAllowed = 'link';
 				e.dataTransfer.setData('dragContent', e.target.alt)
 				name = e.target.alt;
 				e.dataTransfer.setDragImage(img, 10, 10);
 			}
 
 			function dragover(e) {
-				e.dataTransfer.dropEffect = 'copy';
+				e.dataTransfer.dropEffect = 'link';
 				e.preventDefault()
 			}
 
