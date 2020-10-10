@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			div {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+				top: 10px;
+				left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<script type="text/javascript">
+			let dBox = document.getElementsByTagName('div')[0];
+			dBox.onmousedown = function(e) {
+				let x = e.clientX - dBox.offsetLeft;
+				let y = e.clientY - dBox.offsetTop;
+				dBox.onmousemove = function(e) {
+					dBox.style.left = e.clientX - x + 'px';
+					dBox.style.top = e.clientY - y + 'px';
+				}
+				dBox.onmouseup = function() {
+					dBox.onmousemove = null
+					dBox.onmouseup = null
+				}
+			}
+		</script>
+	</body>
+</html>
