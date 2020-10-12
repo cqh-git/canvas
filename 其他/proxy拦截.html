@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var proxy = new Proxy({}, {
+				get: function(target, propkey, Proxy) {
+					// console.log(target, propkey, Proxy)
+					if (propkey in target) {
+                       return target[propkey]
+					}else{
+						throw new ReferenceError('eeeee')
+					}
+				},
+				set: function(target, propkey, value) {
+					target[propkey] = value;
+				}
+			})
+			// let obj = Object.create(proxy);
+			// console.log(obj.h)
+			proxy.age=12;
+			proxy.sex='boy';
+			console.log(proxy.age)
+			console.log(proxy.bb)
+		</script>
+	</body>
+</html>
