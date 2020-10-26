@@ -1292,8 +1292,10 @@
 		// isIntersecting 是否可见true/false 只要大于0就是true
 		// rootMargin: "0px 0px 20px 0px"表示距离可视区域20px的时候就加载图片
 		const io = new IntersectionObserver(callback, {
-			rootMargin: "0px 0px 20px 0px"
+			rootMargin: "0px 0px 20px 0px",//代表距离可视窗口20px的时候触发回调函数
+			thresholds: [0, 0.3, 0.6, 1]//代表这四个阶段会触发四次回调函数
 		});
+		// rootMargin与thresholds属性互斥
 		let imgs = document.querySelectorAll('[data-src]');
 
 		function callback(entries) {
@@ -1302,7 +1304,7 @@
 				console.log(item)
 				if (item.isIntersecting) {
 					item.target.src = item.target.dataset.src
-					item.target.style.background='red'//可以改变颜色增加动画等
+					item.target.style.background = 'red' //可以改变颜色增加动画等
 					io.unobserve(item.target)
 				}
 
