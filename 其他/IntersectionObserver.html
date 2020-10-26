@@ -1302,6 +1302,7 @@
 				console.log(item)
 				if (item.isIntersecting) {
 					item.target.src = item.target.dataset.src
+					item.target.style.background='red'//可以改变颜色增加动画等
 					io.unobserve(item.target)
 				}
 
