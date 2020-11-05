@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>css3旋转立方体效果</title>
+  <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      width: 400px;
+      height: 400px;
+      border: 1px solid #000;
+      margin: 30px auto;
+      perspective: 1200px;/*设置元素被查看位置的视图----景深 看物体的远近 数值大越远*/
+      -webkit-perspective: 1200px; /* Safari 和 Chrome */
+    }
+    .box ul{
+      width: 300px;
+      height: 300px;
+      border: 1px solid #000000;
+      position: relative;
+      transform-style: preserve-3d;  /*设置3d场景*/
+      -webkit-transform-style: preserve-3d;    /* Safari 和 Chrome */
+      animation: move 2s infinite linear;  /*运动时间代表动画循环快慢*/
+      transform-origin: center center 150px; /*第三个需要给具体数值*/
+      -webkit-transform-origin:center center 150px;
+      margin: 50px;
+    }
+    .box ul li{
+      width: 300px;
+      height: 300px;
+      line-height: 300px;
+      position: absolute;
+      font-size: 50px;
+      transition: all .5s;
+      text-align: center;
+      list-style: none;
+    }
+    .box ul li:nth-of-type(1){
+      background: red;
+      opacity: 0.5;
+    }
+    .box ul li:nth-of-type(2){
+      background: blue;
+      opacity: 0.5;
+      transform: translateX(300px) rotateY(-90deg);
+      -webkit-transform: translateX(300px) rotateY(-90deg);    /* Safari 和 Chrome */
+      transform-origin: left;
+      -webkit-transform-origin:left;
+    }
+    .box ul li:nth-of-type(3){
+      background: blueviolet;
+      opacity: 0.5;
+      transform: translateX(-300px) rotateY(90deg);
+      -webkit-transform: translateX(-300px) rotateY(90deg);
+      transform-origin: right;
+      -webkit-transform-origin:right;
+    }
+    .box ul li:nth-of-type(4){
+      background: brown;
+      opacity: 0.5;
+      transform: translateY(-300px) rotateX(-90deg);
+      -webkit-transform: translateY(-300px) rotateX(-90deg);
+      transform-origin: bottom;
+      -webkit-transform-origin:bottom;
+    }
+    .box ul li:nth-of-type(5){
+      background: deeppink;
+      opacity: 0.5;
+      transform: translateY(300px) rotateX(90deg);
+      -webkit-transform: translateY(300px) rotateX(90deg);
+      transform-origin: top;
+      -webkit-transform-origin:top;
+    }
+    .box ul li:nth-of-type(6){
+      background: yellow;
+      opacity: 0.5;
+      transform: translateZ(300px);
+      -webkit-transform: translateZ(300px);
+    }
+    @keyframes move{
+      from{transform: rotateY(0deg);}
+      to{transform: rotateY(360deg);}
+    }
+    @-webkit-keyframes move{
+      from{-webkit-transform: rotateY(0deg);}
+      to{-webkit-transform: rotateY(360deg);}
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <ul>
+    <li>最骚的css3</li>
+    <li>最骚的css3</li>
+    <li>最骚的css3</li>
+    <li>最骚的css3</li>
+    <li>最骚的css3</li>
+    <li>最骚的css3</li>
+  </ul>
+</div>
+</body>
+</html>
