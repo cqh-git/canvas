@@ -5,5 +5,52 @@
 		<title></title>
 	</head>
 	<body>
+		<script type="text/javascript">
+			// console.log(Object.__proto__ === Function.prototype)
+			// console.log(Function.__proto__ === Function.prototype)
+			// console.log(Function.prototype.__proto__ === Object.prototype)
+			// console.log(Function.prototype)
+			// console.log(Array.prototype)
+			// console.log(String.prototype)
+			// console.log(String.prototype.__proto__===Object.prototype)
+			// console.log(String.__proto__===Function.prototype)
+			// console.log(Object.__proto__===Function.prototype)
+			// console.log(Object.prototype)
+			// console.log(Function.prototype())
+			// var aa = [];
+			// console.log(Array.prototype.isPrototypeOf(aa))
+			// console.log(Function.prototype())
+			// Function.prototype.aa=function(){
+			// 	console.log('2222222222222222')
+			// }
+			// console.log(typeof Function.prototype==='function')
+			// function bb(){}
+			// console.log(bb)
+			// bb.aa()
+			// function aa(){console.log(22)};
+			// aa.bb=function(){console.log(111)};
+			// aa()
+			// aa.bb()
+			//    Function.prototype.aa=function(){console.log(1)}
+			// console.log(Object.prototype)
+			// function bb(){}
+			// bb.cc=function(){console.log(99999)}
+			// bb.aa()
+			// bb.cc()
+			// console.log(bb.prototype.cc)
+			// function aa() {};
+			// aa.bb = 1;
+			// aa.prototype.cc = 2;
+			// console.log(aa.prototype.constructor===Function)
+			// // console.log(aa.prototype.constructor)
+			// console.log(aa.prototype)
+			function aa(){};
+			aa.cc=2
+			aa.prototype.bb=1
+			console.log(aa.prototype)
+			console.log(aa.constructor===Function)
+			console.log(aa.prototype.constructor===aa)
+			console.log(Array.constructor===Function)
+		</script>
 	</body>
 </html>

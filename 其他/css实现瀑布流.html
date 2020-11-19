@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+    .parent {
+        /* 规定的列数，设置5列 */
+        column-count: 5;
+        /* 规定的间隔距离 */
+        column-gap: 0;
+    }
+ 
+    .item {
+        /* 不允许插入任何中断 */
+        break-inside: avoid;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+    }
+ 
+    .item__content_big {
+        height: 250px;
+        background: red;
+    }
+ 
+    .item__content_medium {
+        height: 150px;
+        background: blue;
+    }
+ 
+    .item__content_small {
+        height: 100px;
+        background: green;
+    }
+ 
+    @media (max-width: 1024px) {
+        .parent {
+            column-count: 4;
+        }
+    }
+ 
+    @media (max-width: 860px) {
+        .parent {
+            column-count: 3;
+        }
+    }
+ 
+    @media (max-width: 480px) {
+        .parent {
+            column-count: 2;
+        }
+    }
+</style>
+ 
+<body>
+    <div class="parent">
+        <div class="item">
+            <div class="item__content_big"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_small"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_small"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_big"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_medium"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_big"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_medium"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_small"> </div>
+        </div>
+        <div class="item">
+            <div class="item__content_big"> </div>
+        </div>
+    </div>
+</body>
+ 
+</html>
