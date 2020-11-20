@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			let arr = [1, 2, 3, 4, 5, 6, 7];
+			//方法一
+			function first(num) {
+				return new Promise(resolve => {
+					//setTimeout模拟请求
+					setTimeout(() => {
+						resolve(num)
+					}, 2000)
+				})
+			}
+			// 方法二
+			function second() {
+				console.log('我是最后执行')
+			}
+			async function aa() {
+				// 先等待for循环执行完成
+				for (let i = 0; i < arr.length; i++) {
+					const num = await first(arr[i]);
+					//我是从后台循环九次返回的九次结果
+					console.log(num)
+				}
+				//最后才执行我
+				second()
+			}
+			aa()
+		</script>
+	</body>
+</html>
